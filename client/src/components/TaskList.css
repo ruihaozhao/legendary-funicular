@@ -1,0 +1,53 @@
+/* TaskList.css */
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-list li {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.task-list li .task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-list li .task-title {
+  font-weight: bold;
+}
+
+.task-list li button {
+  padding: 3px 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.task-list li button:hover {
+  background-color: #c82333;
+}
+
+.task-list li .task-status {
+  margin-top: 10px;
+}
+
+.task-list li .task-status button {
+  padding: 3px 8px;
+  margin-right: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.task-list li .task-status button:hover {
+  background-color: #0056b3;
+}
