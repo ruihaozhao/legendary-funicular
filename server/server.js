@@ -1,8 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const Task = require('./models/Task');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import Task from './models/Task.js';
 
 const app = express();
 
@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.json());
 
-const uri = 'mongodb+srv://raymondzhao3000:Y6fHAy6V3OJtWZ0E@cluster0.ylvnwhw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoUri = 'mongodb+srv://raymondzhao3000:Y6fHAy6V3OJtWZ0E@cluster0.ylvnwhw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 // Define routes
 app.get('/api/tasks', async (req, res) => {
@@ -26,7 +26,6 @@ app.get('/api/tasks', async (req, res) => {
 app.post('/api/tasks', async (req, res) => {
   try {
     const { title, description, status } = req.body;
-
     // Validate task data
     if (!title || !status || !['To Do', 'In Progress', 'Done'].includes(status)) {
       throw new Error('Invalid task data');
@@ -65,7 +64,7 @@ app.delete('/api/tasks/:id', async (req, res) => {
   }
 });
 
-async function connect() {
+export async function connect(uri=mongoUri) {
   try {
     await mongoose.connect(uri);
     console.log('Connected to MongoDB');
@@ -78,10 +77,13 @@ async function close() {
   await mongoose.connection.close();
   console.log('MongoDB connection closed');
 }
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'test') {
+  // Only connect to the database if not running tests
+  connect();
+}
 
-connect();
-
-const server = app.listen(4000, () => {
+export const server = app.listen(4000, () => {
   console.log('Server started on port 4000');
 });
 
@@ -93,3 +95,4 @@ process.on('SIGINT', async () => {
     process.exit(0);
   });
 });
+

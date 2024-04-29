@@ -1,11 +1,11 @@
 {
   "name": "server",
-  "type": "commonjs",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "NODE_ENV=test mocha",
     "start": "node server",
     "dev": "nodemon server"
   },
@@ -13,10 +13,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/chai": "^4.3.14",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
-    "mongoose": "^8.3.1"
+    "mongodb-memory-server": "^9.2.0",
+    "mongoose": "^8.3.1",
+    "sinon": "^17.0.1"
   },
   "devDependencies": {
     "chai": "^5.1.0",
